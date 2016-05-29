@@ -1,0 +1,7 @@
+{
+  "generator-react-webpack": {
+    "appName": "qsManager",
+    "style": "scss",
+    "postcss": true
+  }
+}
