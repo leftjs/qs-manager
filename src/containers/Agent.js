@@ -10,19 +10,16 @@ import React, {
 } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import Main from '../components/Main';
+import AgentAdd from '../components/AgentAdd'
 import actions from '../actions'
-import Header from '../components/Header'
 
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
+    const {uploadLicense} = this.props;
     return (
 		    <div>
-			    <Header/>
-			    <Main>
-				    {this.props.children}
-			    </Main>
+			    <AgentAdd uploadLicense={uploadLicense}></AgentAdd>
 		    </div>)
   }
 }
@@ -38,6 +35,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
+	console.log(actions)
 	return {
 		...bindActionCreators(actions, dispatch)
 	}

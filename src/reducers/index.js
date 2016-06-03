@@ -7,6 +7,25 @@
  *          you edit them, they are not updated again.
  */
 import { combineReducers } from 'redux';
+import { routerReducer } from 'react-router-redux'
+import * as types from '../actions/const'
+import { loadingBarReducer } from 'react-redux-loading-bar'
 /* Populated by react-webpack-redux:reducer */
-const reducers = {};
-module.exports = combineReducers(reducers);
+const reducers = {
+	hello: (state = {}, action) => {
+		switch (action.type) {
+
+			case `${types.SAY_HELLO}_PENDING`:
+				return {
+					...state
+				}
+			default:
+				return state
+		}
+	}
+};
+export default combineReducers({
+	...reducers,
+	routing: routerReducer,
+	loadingBar: loadingBarReducer
+});
