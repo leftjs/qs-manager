@@ -1,7 +1,7 @@
 /**
  * Created by jason on 5/31/16.
  */
-require('normalize.css/normalize.css');
+//require('normalize.css/normalize.css');
 import LoadingBar from 'react-redux-loading-bar'
 import React from 'react'
 import {Nav, NavItem, Navbar, NavDropdown, MenuItem} from 'react-bootstrap'

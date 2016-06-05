@@ -4,8 +4,9 @@
 var Schema = require('mongoose').Schema
 var agentSchema = Schema({
 	name: String,
-	province: String,
+	contact: String,
 	phone: String,
+	province: String,
 	city: String,
 	district: String,
 	address: String,

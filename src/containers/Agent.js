@@ -16,10 +16,10 @@ import actions from '../actions'
 /* Populated by react-webpack-redux:reducer */
 class App extends Component {
   render() {
-    const {uploadLicense} = this.props;
+    const {actions} = this.props;
     return (
 		    <div>
-			    <AgentAdd uploadLicense={uploadLicense}></AgentAdd>
+			    <AgentAdd actions={actions}></AgentAdd>
 		    </div>)
   }
 }
@@ -35,9 +35,10 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch) {
   /* Populated by react-webpack-redux:action */
-	console.log(actions)
 	return {
-		...bindActionCreators(actions, dispatch)
+		actions: {
+			...bindActionCreators(actions, dispatch)
+		}
 	}
 
 
