@@ -9,6 +9,10 @@ import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 import config from '../config/index'
 import _ from 'lodash'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
+import actions from '../actions'
+
 var client = {
 	region:'qs-manager.oss-cn-hangzhou-internal.aliyuncs.com',
 	accessKeyId: 'D7wyxh0NcajbB9Bk',
@@ -72,7 +76,11 @@ class AgentAdd extends React.Component {
 			const {uploadLicense} = this.props.actions
 			uploadLicense(data).then((res) => {
 				this.setState({
-					license_url: `${config.domain}/images/${res.value}`
+					license_url: `${config.domain}/images/${res.value}`,
+					agentInfo: {
+						...this.state.agentInfo,
+						license_url: `${config.domain}/images/${res.value}`
+					}
 				})
 			}).catch((err) => {
 				alert(err.reason)
@@ -86,8 +94,9 @@ class AgentAdd extends React.Component {
 
 
 	handleProvinceSelected = (e) => {
+		//console.log('----->>>>>>', )
 		this.setState({
-			province_select: e.target.value
+			province_select: e.target.options[e.target.selectedIndex].text,
 		})
 		if (e.target.value == 0) {
 			this.setState({
@@ -112,7 +121,7 @@ class AgentAdd extends React.Component {
 
 	handleCitySelected = (e) => {
 		this.setState({
-			city_select: e.target.value
+			city_select: e.target.options[e.target.selectedIndex].text,
 		})
 		if (e.target.value == 0 ) {
 			this.setState({
@@ -133,16 +142,46 @@ class AgentAdd extends React.Component {
 
 	handleDistrictSelected = (e) => {
 		this.setState({
-			district_select: e.target.value
+			district_select: e.target.options[e.target.selectedIndex].text,
 		})
 	}
 
-	handleSubmitClick = (e) => {
-		console.log('===>>>>', this._nameInput.value)
-		const {registerAgent} = this.props.actions
-		registerAgent({
 
-		})
+
+
+	/*
+	 name: String,
+	 contact: String,
+	 phone: String,
+	 province: String,
+	 city: String,
+	 district: String,
+	 address: String,
+	 license_code: String,
+	 license_url: String
+	 */
+	handleSubmitClick = (e) => {
+		const nameInput = ReactDOM.findDOMNode(this._nameInput)
+		const contactInput= ReactDOM.findDOMNode(this._contactInput)
+		const phoneInput= ReactDOM.findDOMNode(this._phoneInput)
+		const licenseCodeInput= ReactDOM.findDOMNode(this._licenseCodeInput)
+		const addressInput= ReactDOM.findDOMNode(this._addressInput)
+
+		const agentInfo = {
+			name: nameInput.value,
+			contact: contactInput.value,
+			phone: phoneInput.value,
+			province: this.state.province_select,
+			city: this.state.city_select,
+			district: this.state.district_select,
+			address: addressInput.value,
+			license_code: licenseCodeInput.value,
+			license_url: this.state.license_url
+		}
+
+		console.log("agentInfo====>>>>>", agentInfo)
+		const {registerAgent} = this.props.actions
+		registerAgent(agentInfo)
 	}
 
 
@@ -189,15 +228,15 @@ class AgentAdd extends React.Component {
 							代理商名称
 						</Col>
 						<Col sm={10}>
-							<FormControl type="text" placeholder="代理商名称" controlId="formHorizontalName" ref={ref => this._nameInput = ref}/>
+							<FormControl type="text" placeholder="代理商名称" controlId="formHorizontalName" ref={ref => this._nameInput = ref} />
 						</Col>
 					</FormGroup>
 					<FormGroup>
-						<Col componentClass={ControlLabel} sm={2} ref={ref => this._contactInput = ref}>
+						<Col componentClass={ControlLabel} sm={2}>
 							联系人
 						</Col>
 						<Col sm={10}>
-							<FormControl type="text" placeholder="联系人" contorlId="formHorizontalContact"/>
+							<FormControl type="text" placeholder="联系人" contorlId="formHorizontalContact" ref={ref => this._contactInput = ref}/>
 						</Col>
 					</FormGroup>
 					<FormGroup>
@@ -205,7 +244,7 @@ class AgentAdd extends React.Component {
 							联系电话
 						</Col>
 						<Col sm={10}>
-							<FormControl type="tel" placeholder="联系电话" contorlId="formHorizontalPhone"/>
+							<FormControl type="tel" placeholder="联系电话" contorlId="formHorizontalPhone" ref={ref => this._phoneInput = ref}/>
 						</Col>
 					</FormGroup>
 					<FormGroup>
@@ -213,7 +252,7 @@ class AgentAdd extends React.Component {
 							营业执照编号
 						</Col>
 						<Col sm={10}>
-							<FormControl type="tel" placeholder="营业执照编号" contorlId="formHorizontalLicenseCode"/>
+							<FormControl type="tel" placeholder="营业执照编号" contorlId="formHorizontalLicenseCode" ref={ref => this._licenseCodeInput = ref}/>
 						</Col>
 					</FormGroup>
 
@@ -255,7 +294,7 @@ class AgentAdd extends React.Component {
 							</FormControl>
 						</Col>
 						<Col sm={4}>
-							<FormControl type="text" placeholder="详细地址" controlId="formHorizontalAddressDetail"/>
+							<FormControl type="text" placeholder="详细地址" controlId="formHorizontalAddressDetail" ref={ref => this._addressInput = ref}/>
 						</Col>
 					</FormGroup>
 					<FormGroup>
@@ -271,4 +310,19 @@ class AgentAdd extends React.Component {
 	}
 }
 
-export default AgentAdd
+function mapStateToProps(state) {
+	/* Populated by react-webpack-redux:reducer */
+	const props = {};
+	return props;
+}
+function mapDispatchToProps(dispatch) {
+	/* Populated by react-webpack-redux:action */
+	return {
+		actions: {
+			...bindActionCreators(actions, dispatch)
+		}
+	}
+
+
+}
+export default connect(mapStateToProps, mapDispatchToProps)(AgentAdd);

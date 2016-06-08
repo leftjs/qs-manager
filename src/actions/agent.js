@@ -16,3 +16,17 @@ export const registerAgent = (body) => {
 		})
 	})
 }
+
+
+export const getAgentList = () => {
+	return dispatch => dispatch({
+		type: types.LOADING_AGENT_LIST,
+		payload: new Promise((resolve,reject) => {
+			req.get('/agents').then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
+	})
+}

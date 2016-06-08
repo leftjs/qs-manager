@@ -13,3 +13,18 @@
 .address_select {
   margin-left: 10px;
 }
+
+.table_inline_button {
+  padding: 0px 10px;
+}
+
+.table_inline_input {
+  height: 22px;
+  padding:0;
+}
+
+.table_span{
+  overflow: hidden;
+  text-overflow:ellipsis;
+  white-space: nowrap;
+}

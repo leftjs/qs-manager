@@ -17,9 +17,14 @@ import actions from '../actions'
 class App extends Component {
   render() {
     const {actions} = this.props;
+	  const childrenWithProps = React.Children.map(this.props.children,
+		  (child) => React.cloneElement(child, {
+			  actions: actions
+		  })
+	  );
     return (
 		    <div>
-			    <AgentAdd actions={actions}></AgentAdd>
+			    {childrenWithProps}
 		    </div>)
   }
 }

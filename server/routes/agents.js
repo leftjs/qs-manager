@@ -5,10 +5,6 @@ var express = require('express');
 var router = express.Router();
 var agent = require('../models/agent')
 
-/* GET users listing. */
-router.get('/', function(req, res, next) {
-	res.json('respond with a resource');
-});
 
 
 //name: String,
@@ -21,7 +17,6 @@ router.get('/', function(req, res, next) {
 //	license_code: String,
 //	license_url: String
 router.post('/', function(req,res,next){
-	console.log(req)
 	let body = req.body
 	agent.create({
 		name: body.name,
@@ -39,6 +34,16 @@ router.post('/', function(req,res,next){
 	})
 })
 
+
+
+//router.get('/:id',function(req, res, next) {
+//})
+
+router.get('/',function(req,res,next) {
+	agent.find({}).exec(function(err,doc) {
+		res.json(doc)
+	})
+})
 
 const customError = (status, msg) => {
 	let error = new Error()

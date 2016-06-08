@@ -6,7 +6,9 @@ import { syncHistoryWithStore } from 'react-router-redux'
 import configureStore from './stores/configureStore';
 import App from './containers/App';
 import Foo from './components/Foo'
-import Agent from './containers/Agent'
+import AgentAdd from './components/AgentAdd'
+import AgentList from './components/AgentList'
+import LeaveFactoryRegister from './components/LeaveFactoryRegister'
 
 const store = configureStore();
 
@@ -17,7 +19,9 @@ render(
     <Router history={history}>
 	    <Route path="/" component={App}>
 				<Route path="foo" component={Foo}/>
-				<Route path="add_agent" component={Agent}/>
+		    <Route path="agent_add" component={AgentAdd}/>
+		    <Route path="agent_list" component={AgentList}/>
+		    <Route path="leave_factory_register" component={LeaveFactoryRegister} />
 	    </Route>
     </Router>
   </Provider>,
