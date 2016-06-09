@@ -44,6 +44,8 @@ export const updateAgentInfo = (body) => {
 	})
 }
 
+
+
 export const deleteAgent = (id) => {
 	return dispatch => dispatch({
 		type: types.DELETE_AGENT,

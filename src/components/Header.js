@@ -5,9 +5,26 @@
 import LoadingBar from 'react-redux-loading-bar'
 import React from 'react'
 import {Nav, NavItem, Navbar, NavDropdown, MenuItem} from 'react-bootstrap'
+import _ from 'lodash'
+import { Link, browserHistory } from 'react-router'
+
 
 require('../styles/Header.scss')
 export default class extends React.Component {
+
+	agentAddClicked = (e) => {
+		browserHistory.push('/agent_add')
+	}
+
+	agentListClicked = (e) => {
+		browserHistory.push('/agent_list')
+	}
+
+	goodsListClicked = (e) => {
+		browserHistory.push('/goods_list')
+	}
+
+
 	render() {
 		return (
 			<div>
@@ -25,11 +42,12 @@ export default class extends React.Component {
 								<MenuItem divider />
 							</NavDropdown>
 							<NavDropdown eventKey={2} title="代理商管理" id="basic-nav-dropdown">
-								<MenuItem eventKey={2.1}>添加代理商</MenuItem>
-								<MenuItem eventKey={2.3}>查看代理商</MenuItem>
+								<MenuItem eventKey={2.1} onClick={this.agentAddClicked}>添加代理商</MenuItem>
+								<MenuItem eventKey={2.3} onClick={this.agentListClicked}>查看代理商</MenuItem>
 							</NavDropdown>
 							<NavDropdown eventKey={3} title="销售管理" id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1}>出厂登记</MenuItem>
+								<MenuItem eventKey={3.2} onClick={this.goodsListClicked}>商品列表</MenuItem>
 							</NavDropdown>
 						</Nav>
 						<Nav pullRight>
@@ -48,4 +66,3 @@ const styles = {
 
 	}
 }
-
