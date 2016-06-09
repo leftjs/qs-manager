@@ -39,6 +39,21 @@ export function get(url,params) {
 		.then(filterStatus)
 		.then(filterJSON);
 }
+export function remove(url,params) {
+	url = urlPrefix + url;
+	if (params) {
+		url += `?${qs.stringify(params)}`;
+	}
+
+	console.info(`GET: `, url);
+	console.info(`Params: `, params)
+
+	return fetch(url, {
+		method: 'DELETE'
+	})
+		.then(filterStatus)
+		.then(filterJSON);
+}
 
 
 export function post(url, body, headers) {
@@ -60,6 +75,29 @@ export function post(url, body, headers) {
 		.then(filterStatus)
 		.then(filterJSON);
 }
+
+
+export function put(url, body, headers) {
+	url = urlPrefix + url;
+
+	console.info(`PUT: `, url);
+	console.info(`Body: `, body)
+	console.info(`Headers: `, headers)
+
+	return fetch(url, {
+		method: 'PUT',
+		headers: {
+			'Accept': 'application/json',
+			'Content-Type': 'application/json',
+			...headers
+		},
+		body: JSON.stringify(body)
+	})
+		.then(filterStatus)
+		.then(filterJSON);
+}
+
+
 export function upload(url, data) {
 	url = urlPrefix + url;
 

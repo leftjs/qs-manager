@@ -9,5 +9,9 @@ export const UPLOAD_LICENSE = "UPLOAD_LICENSE"
 export const LOADING_CITY_LIST = "LOADING_CITY_LIST"
 // 注册代理商
 export const REGISTER_AGENT = "REGISTER_AGENT"
-
+// 加载代理商列表
 export const LOADING_AGENT_LIST = "LOADING_AGENT_LIST"
+// 更新代理商信息
+export const UPDATE_AGENT_INFO="UPDATE_AGENT_INFO"
+// 删除一个代理商信息
+export const DELETE_AGENT="DELETE_AGENT"

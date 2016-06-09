@@ -34,6 +34,45 @@ router.post('/', function(req,res,next){
 	})
 })
 
+router.put('/:id', function(req,res,next) {
+	let body = req.body
+	agent.update({_id: body._id}, {
+		$set: {
+			name: body.name,
+			contact: body.contact,
+			phone: body.phone,
+			address: body.address,
+			license_code: body.license_code
+		}}, {multi: false}, function(err, numAffected) {
+		if (err) {
+			return next(customError(400, err))
+		}
+		if (numAffected == 0) {
+			return next(customError(400, "更新失败"))
+		}
+		res.json(body)
+	})
+})
+
+router.delete('/:id', function(req,res,next) {
+	let id = req.params['id']
+	console.log(id)
+	agent.remove({_id: id}, function(err) {
+		if (err) {
+			return next(customError(400, err))
+		}
+		res.json({msg: 'success'})
+	})
+})
+	//var conditions = { name: 'borne' }
+	//	, update = { $inc: { visits: 1 }}
+	//	, options = { multi: true };
+	//
+	//Model.update(conditions, update, options, callback);
+	//
+	//function callback (err, numAffected) {
+	//	// numAffected is the number of updated documents
+	//})
 
 
 //router.get('/:id',function(req, res, next) {

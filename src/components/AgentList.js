@@ -41,7 +41,6 @@ class AgentList extends React.Component {
 //	license_code: String,
 //	license_url: String
 	_renderAgentList = (agentList) => {
-		console.log('agentList', agentList)
 		var renderArr = []
 		_.forEach(agentList, (value,key) => {
 			//console.log('key-->>>', key, 'value-->>', value)
@@ -96,9 +95,29 @@ class AgentList extends React.Component {
 				})
 			}
 
+			const handleSaveClicked = (e) => {
+				const {updateAgentInfo} = this.props.actions
+				updateAgentInfo(this.state.editModel).then(() => {
+					this.setState({
+						editId: undefined,
+						editModel: undefined
+					})
+				}).catch(()=> {
+					alert("更新失败")
+				})
+			}
+
+			const handleDeleteClicked = (e) => {
+				const {deleteAgent} = this.props.actions
+				deleteAgent(value._id).then(() => {
+				}).catch(() => {
+					alert("删除失败")
+				})
+			}
+
 			const {editId} = this.state
 			renderArr.push(
-				<tr>
+				<tr key={key}>
 					<td>{key}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.name : <FormControl md={1} className="table_inline_input" type="text" defaultValue={value.name} onChange={handleNameInputChange}/>}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.contact : <FormControl className="table_inline_input" type="text" defaultValue={value.contact} onChange={handleContactInputChange}/>}</td>
@@ -109,7 +128,7 @@ class AgentList extends React.Component {
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.address : <FormControl className="table_inline_input" type="text" defaultValue={value.address} onChange={handleAddressInputChange}/>}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.license_code : <FormControl className="table_inline_input" type="text" defaultValue={value.license_code} onChange={handleLicenseCodeInputChange}/>}</td>
 					<td>{!!value.license_url ? <Button className="table_inline_button" bsClass="btn" bsStyle="link" target="_black" href={value.license_url}>查看</Button> : "未上传"}</td>
-					<td>{editId == key ? <Button className="table_inline_button" bsStyle="info">保存</Button> : <Button className="table_inline_button" bsStyle="danger">删除</Button> }</td>
+					<td>{editId == key ? <Button className="table_inline_button" bsStyle="info" onClick={handleSaveClicked}>保存</Button> : <Button className="table_inline_button" bsStyle="danger" onClick={handleDeleteClicked}>删除</Button> }</td>
 				</tr>
 			)
 		})
@@ -119,7 +138,7 @@ class AgentList extends React.Component {
 		//console.log(this.props.agent)
 		return (
 			<Col md={10} mdOffset={1} xs={12}>
-				<Table responsive >
+				<Table responsive striped bordered condensed hover>
 					<thead>
 						<tr>
 							<th>编号</th>

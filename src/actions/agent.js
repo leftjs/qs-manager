@@ -30,3 +30,33 @@ export const getAgentList = () => {
 		})
 	})
 }
+
+export const updateAgentInfo = (body) => {
+	return dispatch => dispatch({
+		type: types.UPDATE_AGENT_INFO,
+		payload: new Promise((resolve,reject) => {
+			req.put(`/agents/${body._id}`,body).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
+	})
+}
+
+export const deleteAgent = (id) => {
+	return dispatch => dispatch({
+		type: types.DELETE_AGENT,
+		payload: new Promise((resolve,reject) => {
+			req.remove(`/agents/${id}`).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		}),
+		meta: {
+			id
+		}
+	})
+}
+
