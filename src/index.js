@@ -9,6 +9,7 @@ import Foo from './components/Foo'
 import AgentAdd from './components/AgentAdd'
 import AgentList from './components/AgentList'
 import GoodsList from './components/GoodsList'
+import GoodsAdd from './components/GoodsAdd'
 import LeaveFactoryRegister from './components/LeaveFactoryRegister'
 
 const store = configureStore();
@@ -23,7 +24,9 @@ render(
 		    <Route path="agent_add" component={AgentAdd}/>
 		    <Route path="agent_list" component={AgentList}/>
 		    <Route path="goods_list" component={GoodsList}/>
+		    <Route path="goods_add" component={GoodsAdd}/>
 		    <Route path="leave_factory_register" component={LeaveFactoryRegister} />
+
 	    </Route>
     </Router>
   </Provider>,

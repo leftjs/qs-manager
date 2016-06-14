@@ -13,7 +13,8 @@ global.db = mongoose.createConnection(db_uri)
 var routes = require('./routes/index');
 var users = require('./routes/users');
 var agents = require('./routes/agents');
-var upload = require('./routes/upload')
+var upload = require('./routes/upload');
+var sale = require('./routes/sale');
 
 var app = express();
 
@@ -29,6 +30,8 @@ app.use('/', routes);
 app.use('/users', users);
 app.use('/agents', agents)
 app.use('/upload', upload)
+app.use('/sale', sale)
+
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

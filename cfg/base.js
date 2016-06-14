@@ -2,6 +2,7 @@
 let path = require('path');
 let defaultSettings = require('./defaults');
 let additionalPaths = [];
+let autoprefixer = require('autoprefixer')
 module.exports = {
   additionalPaths: additionalPaths,
   port: defaultSettings.port,
@@ -37,6 +38,6 @@ module.exports = {
   },
   module: {},
   postcss: function () {
-    return [];
+    return [autoprefixer({ browsers: ['last 2 versions'] })];
   }
 };

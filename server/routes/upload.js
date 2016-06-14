@@ -18,7 +18,7 @@ var util = require('util')
 //	bucket: 'qs-manager'
 //})
 
-router.put('/license', upload.single('file'), function(req,res,next) {
+router.put('/image', upload.single('file'), function(req,res,next) {
 	const newFileName = req.file.filename + '.' + req.file.mimetype.split('/')[1]
 	fs.rename(path.join('./', req.file.path), path.join('./', req.file.path, '../' , '../', 'public/images', newFileName), () => {
 		res.json(newFileName)

@@ -24,6 +24,14 @@ export default class extends React.Component {
 		browserHistory.push('/goods_list')
 	}
 
+	goodsAddClicked = (e) => {
+		browserHistory.push('/goods_add')
+	}
+
+	leaveRegisterClicked = (e) => {
+		browserHistory.push('/leave_factory_register')
+	}
+
 
 	render() {
 		return (
@@ -31,7 +39,7 @@ export default class extends React.Component {
 				<Navbar default>
 					<Navbar.Header>
 						<Navbar.Brand>
-							<a href="#">React-Bootstrap</a>
+							<a href="#">青霜科技Admin</a>
 						</Navbar.Brand>
 						<Navbar.Toggle />
 					</Navbar.Header>
@@ -46,8 +54,10 @@ export default class extends React.Component {
 								<MenuItem eventKey={2.3} onClick={this.agentListClicked}>查看代理商</MenuItem>
 							</NavDropdown>
 							<NavDropdown eventKey={3} title="销售管理" id="basic-nav-dropdown">
-								<MenuItem eventKey={3.1}>出厂登记</MenuItem>
+								<MenuItem eventKey={3.1} onClick={this.leaveRegisterClicked}>出厂登记</MenuItem>
+								<MenuItem divider />
 								<MenuItem eventKey={3.2} onClick={this.goodsListClicked}>商品列表</MenuItem>
+								<MenuItem eventKey={3.3} onClick={this.goodsAddClicked}>商品添加</MenuItem>
 							</NavDropdown>
 						</Nav>
 						<Nav pullRight>

@@ -8,7 +8,7 @@ export const uploadLicense = (data) => {
 	return dispatch => dispatch({
 		type: types.UPLOAD_LICENSE,
 		payload: new Promise((resolve, reject) => {
-			req.upload('/upload/license', data).then((res) => {
+			req.upload('/upload/image', data).then((res) => {
 				resolve(res)
 			}).catch((err) => {
 				reject(err)

@@ -11,6 +11,7 @@ import { routerReducer } from 'react-router-redux'
 import * as types from '../actions/const'
 import { loadingBarReducer } from 'react-redux-loading-bar'
 import * as agent from './agent'
+import * as good from './good'
 /* Populated by react-webpack-redux:reducer */
 const reducers = {
 	hello: (state = {}, action) => {
@@ -28,6 +29,7 @@ const reducers = {
 export default combineReducers({
 	...reducers,
 	...agent,
+	...good,
 	routing: routerReducer,
 	loadingBar: loadingBarReducer
 });

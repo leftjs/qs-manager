@@ -4,7 +4,7 @@
 //require('normalize.css/normalize.css');
 require('../styles/Agent.scss')
 import React from 'react'
-import {Col, Form, FormGroup, Checkbox, Button, ControlLabel, FormControl} from 'react-bootstrap'
+import {Col, Form, FormGroup, Checkbox, Button, ControlLabel, FormControl, Alert} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 import config from '../config/index'
@@ -12,6 +12,7 @@ import _ from 'lodash'
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import actions from '../actions'
+import {browserHistory} from 'react-router'
 
 var client = {
 	region:'qs-manager.oss-cn-hangzhou-internal.aliyuncs.com',
@@ -49,7 +50,8 @@ class AgentAdd extends React.Component {
 	    district: {},
 	    province_select: null,
 	    city_select: null,
-	    district_select: null
+	    district_select: null,
+	    alertVisible: false
     };
   }
 
@@ -181,7 +183,13 @@ class AgentAdd extends React.Component {
 
 		console.log("agentInfo====>>>>>", agentInfo)
 		const {registerAgent} = this.props.actions
-		registerAgent(agentInfo)
+		registerAgent(agentInfo).then((res) => {
+			browserHistory.push('/agent_list')
+		}).catch((err) => {
+			this.setState({
+				alertVisible: true
+			})
+		})
 	}
 
 
@@ -219,8 +227,21 @@ class AgentAdd extends React.Component {
 	}
 
 
+	handleAlertDismiss = (e) => {
+		this.setState({
+			alertVisible: false
+		})
+	}
+
 	render(){
 		return (
+		<div>
+			{!!this.state.alertVisible && (
+				<Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>
+					<h4>提交失败!</h4>
+					<p>请填写完整的信息或检查所填写信息是否正确</p>
+				</Alert>
+			)}
 			<Col xs={12} md={8} mdOffset={2}>
 				<Form horizontal>
 					<FormGroup>
@@ -306,6 +327,7 @@ class AgentAdd extends React.Component {
 					</FormGroup>
 				</Form>
 			</Col>
+		</div>
 		)
 	}
 }

@@ -1,0 +1,27 @@
+@import "./Variables.scss";
+
+
+p.good_desc {
+  overflow : hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+img.good_img {
+  height: 100%;
+  width: 100%;
+}
+div.btn_group {
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+  button {
+    margin-right: 5px;
+  }
+}
+
+img.detail_img {
+  width: 100%;
+}

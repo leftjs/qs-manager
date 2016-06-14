@@ -4,7 +4,7 @@
 var express = require('express');
 var router = express.Router();
 var agent = require('../models/agent')
-
+var _ = require('lodash')
 
 
 //name: String,
@@ -18,6 +18,11 @@ var agent = require('../models/agent')
 //	license_url: String
 router.post('/', function(req,res,next){
 	let body = req.body
+	if (_.some(_.values(body), (ele) => {
+			return _.isNil(ele) || _.isEmpty(ele)
+		})) {
+		return next(customError(400, "请填写完整的信息"))
+	}
 	agent.create({
 		name: body.name,
 		contact: body.contact,
@@ -30,6 +35,7 @@ router.post('/', function(req,res,next){
 		license_url: body.license_url
 	}, function(err,doc) {
 		if (err) return next(err)
+		console.log('doc',doc)
 		res.json(doc)
 	})
 })
@@ -88,6 +94,7 @@ const customError = (status, msg) => {
 	let error = new Error()
 	error.status = status
 	error.message = msg
+	return error
 }
 
 

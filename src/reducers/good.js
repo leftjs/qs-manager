@@ -4,14 +4,14 @@
 import * as types from '../actions/const'
 import _ from 'lodash'
 /* Populated by react-webpack-redux:reducer */
-export const agent = (state = [], action) => {
+export const goods = (state = [], action) => {
 	//console.log(state)
 	switch (action.type) {
-		case `${types.LOADING_AGENT_LIST}_FULFILLED`:
+		case `${types.LOADING_GOODS_LIST}_FULFILLED`:
 			return [
 				...action.payload
 			]
-		case `${types.UPDATE_AGENT_INFO}_FULFILLED`:
+		case `${types.UPDATE_GOOD_INFO}_FULFILLED`:
 			const oldState = [...state]
 			var newState = _.map(oldState,(ele) => {
 				if (ele._id != action.payload._id) {
@@ -23,7 +23,7 @@ export const agent = (state = [], action) => {
 			return [
 				...newState
 			]
-		case `${types.DELETE_AGENT}_FULFILLED`:
+		case `${types.DELETE_GOOD}_FULFILLED`:
 			const {meta} = action
 			const {id} = meta
 			const newState = _.filter(state, function(ele) {
