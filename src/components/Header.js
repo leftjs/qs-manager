@@ -31,6 +31,9 @@ export default class extends React.Component {
 	leaveRegisterClicked = (e) => {
 		browserHistory.push('/leave_factory_register')
 	}
+	loginClicked = (e) => {
+		browserHistory.push('/login')
+	}
 
 
 	render() {
@@ -55,14 +58,14 @@ export default class extends React.Component {
 							</NavDropdown>
 							<NavDropdown eventKey={3} title="销售管理" id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1} onClick={this.leaveRegisterClicked}>出厂登记</MenuItem>
+								<MenuItem eventKey={3.2} onClick={this.leaveRegisterClicked}>销售列表</MenuItem>
 								<MenuItem divider />
-								<MenuItem eventKey={3.2} onClick={this.goodsListClicked}>商品列表</MenuItem>
-								<MenuItem eventKey={3.3} onClick={this.goodsAddClicked}>商品添加</MenuItem>
+								<MenuItem eventKey={3.3} onClick={this.goodsListClicked}>商品列表</MenuItem>
+								<MenuItem eventKey={3.4} onClick={this.goodsAddClicked}>商品添加</MenuItem>
 							</NavDropdown>
 						</Nav>
 						<Nav pullRight>
-							<NavItem eventKey={1} href="#">注册</NavItem>
-							<NavItem eventKey={2} href="#">登录</NavItem>
+							<NavItem eventKey={1} href="#" onClick={this.loginClicked}>登录</NavItem>
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>

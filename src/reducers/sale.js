@@ -11,7 +11,11 @@ export const leaveRecords = (state = [], action) => {
 			return [
 				...action.payload
 			]
-
+		case `${types.LEAVE_FACTORY_REGISTER}_FULFILLED`:
+			return [
+				...state,
+				action.payload
+			]
 		default:
 			return state
 	}

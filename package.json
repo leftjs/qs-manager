@@ -85,6 +85,7 @@
     "morgan": "~1.6.1",
     "multer": "^1.1.0",
     "normalize.css": "^4.0.0",
+    "qrcode.react": "^0.6.1",
     "query-string": "^4.2.0",
     "react": "^15.0.0",
     "react-bootstrap": "^0.29.4",
@@ -99,6 +100,7 @@
     "redux-logger": "^2.6.1",
     "redux-promise-middleware": "^3.0.0",
     "redux-thunk": "^2.1.0",
-    "serve-favicon": "~2.3.0"
+    "serve-favicon": "~2.3.0",
+    "wechat-oauth": "^1.1.1"
   }
 }

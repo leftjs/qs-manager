@@ -2,7 +2,7 @@
  * Created by jason on 6/6/16.
  */
 import React from 'react'
-import {Col, Form, FormGroup, Checkbox, Button, ControlLabel, FormControl, Panel, Table} from 'react-bootstrap'
+import {Col, Form, FormGroup, Checkbox, Button, ControlLabel, FormControl, Panel, Table, Alert} from 'react-bootstrap'
 import ReactDOM from 'react-dom'
 import fetch from 'isomorphic-fetch'
 import config from '../config/index'
@@ -63,6 +63,15 @@ class LeaveFactoryRegister extends React.Component {
 			goodId: this.state.goodId,
 			agentId: this.state.agentId,
 			leaveCount: leaveCountInput.value
+		}).catch((err) => {
+			this.setState({
+				alertVisible: true
+			})
+			setTimeout(() => {
+				this.setState({
+					alertVisible: false
+				})
+			}, 2000)
 		})
 	}
 	render() {
@@ -102,19 +111,30 @@ class LeaveFactoryRegister extends React.Component {
 				const good = _.find(goods, function(inline) {
 					return inline._id == value.goodId
 				})
-				renderArr.push(
-					<tr key={key}>
-						<td>{value._id}</td>
-						<td>{!!agent && agent.name}</td>
-						<td>{!!agent && agent.province}</td>
-						<td>{!!good && good.name}</td>
-						<td>{value.leaveCount}</td>
-						<td>{value.leaveDate}</td>
-					</tr>
+				renderArr.push({
+					id: value._id,
+					agent: !!agent && agent.name,
+					address: !!agent && agent.province,
+					good: !!good && good.name,
+					leaveCount: value.leaveCount,
+					leaveDate: value.leaveDate
+				}
+					//<tr key={key}>
+					//	<td>{value._id}</td>
+					//	<td>{!!agent && agent.name}</td>
+					//	<td>{!!agent && agent.province}</td>
+					//	<td>{!!good && good.name}</td>
+					//	<td>{value.leaveCount}</td>
+					//	<td>{value.leaveDate}</td>
+					//</tr>
 				)
 			})
+
+
+			console.log(renderArr)
 			return renderArr
 		}
+
 		return (
 			<div>
 				{!!this.state.alertVisible && (
@@ -166,36 +186,31 @@ class LeaveFactoryRegister extends React.Component {
 					</Form>
 				</Col>
 				<Col xs={12} md={12} >
-
 					<Panel header="出库记录">
-						<Table responsive striped bordered condensed hover>
-							<thead>
-								<tr>
-									<th>编号</th>
-									<th>代理商</th>
-									<th>省份</th>
-									<th>商品</th>
-									<th>出库数</th>
-									<th>出库时间</th>
-								</tr>
-							</thead>
-							<tbody>
-								{renderLeaveFactoryTableCell()}
-							</tbody>
-						</Table>
-					</Panel>
-					<Panel header="asadfa">
-						<BootstrapTable data={this.props.agents} striped={true} hover={true} >
-							<TableHeaderColumn isKey={true} dataField="_id">编号</TableHeaderColumn>
-							<TableHeaderColumn dataField="name">代理商名称</TableHeaderColumn>
+						<BootstrapTable
+							data={renderLeaveFactoryTableCell()}
+							striped={true}
+							hover={true}
+							condensed={true}
+							//selectRow={{
+							//	mode: "checkbox",  //checkbox for multi select, radio for single select.
+							//	clickToSelect: true,   //click row will trigger a selection on that row.
+							//	bgColor: "rgb(238, 193, 213)"   //selected row background color
+							//}}
+							pagination={true}
+							//insertRow={true}
+							//deleteRow={true}
+							columnFilter={true}
+							search={true}>
+							<TableHeaderColumn dataField="id" isKey={true} dataSort={true}>编号</TableHeaderColumn>
+							<TableHeaderColumn dataField="agent">代理商</TableHeaderColumn>
+							<TableHeaderColumn dataField="address" dataSort={true}>地区</TableHeaderColumn>
+							<TableHeaderColumn dataField="good">商品</TableHeaderColumn>
+							<TableHeaderColumn dataField="leaveCount" dataSort={true}>出库数量</TableHeaderColumn>
+							<TableHeaderColumn dataField="leaveDate" dataSort={true}>出库时间</TableHeaderColumn>
 						</BootstrapTable>
-
 					</Panel>
-
-
 				</Col>
-
-
 			</div>
 		)
 	}

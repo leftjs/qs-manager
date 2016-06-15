@@ -5,6 +5,7 @@ import * as types from './const'
 import * as upload from './upload'
 import * as agent from './agent'
 import * as sale from './sale'
+import * as user from './user'
 import * as req from '../services/request'
 
 const getCityList = (cityId) => {
@@ -24,6 +25,7 @@ export default {
 	...upload,
 	...agent,
 	...sale,
+	...user,
 	getCityList
 }
 

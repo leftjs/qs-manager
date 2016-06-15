@@ -189,6 +189,11 @@ class AgentAdd extends React.Component {
 			this.setState({
 				alertVisible: true
 			})
+			setTimeout(() => {
+				this.setState({
+					alertVisible: false
+				})
+			}, 2000)
 		})
 	}
 

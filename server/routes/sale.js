@@ -87,20 +87,6 @@ router.delete('/good/:id', function(req,res,next) {
 })
 
 
-//qrCodeUrl: String,
-//	agentId: String,
-//	goodId: String,
-//  user: String
-//	activate: Boolean,
-//	activateDate: Date,
-//	scanCount: Number
-
-
-
-//leaveDate: Date,
-//	agentId: String,
-//	goodId: String,
-//	leaveCount: String
 router.post('/leave',function(req,res,next) {
 	let body = req.body
 	if (_.some(_.values(body), (ele) => {
@@ -122,7 +108,8 @@ router.post('/leave',function(req,res,next) {
 				activate: false,
 				user: null,
 				activateDate: null,
-				scanCount: 0
+				scanCount: 0,
+				batch: batchInfo._id
 			},(err, doc) => {
 				if (err) return next(err)
 				sale.update({_id: doc._id}, {$set: {
