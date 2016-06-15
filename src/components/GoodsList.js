@@ -44,7 +44,7 @@ class GoodsList extends React.Component {
 		 quality_guarantee: _.toInteger(body.quality_guarantee),
 		 image_url: body.image_url
 		*/
-		_(goods).forEach((good) => {
+		_(goods).forEach((good,key) => {
 
 			const detailOnClicked = (e) => {
 				this.showDetailModal(good)
@@ -60,12 +60,13 @@ class GoodsList extends React.Component {
 			}
 
 			renderArr.push(
-				<Col xs={6} md={4}>
+				<Col xs={6} md={4} key={key}>
 					<div className="thumbnail">
 						<img src={good.image_url} className="good_img" alt="200*200"/>
 						<div className="caption">
 							<h3>{good.name}</h3>
 							<p className="good_desc">{good.desc}</p>
+							<p><b>编号: </b>{good._id}</p>
 							<p><b>单价: </b>{good.price} 元</p>
 							<p><b>保质期: </b>{good.quality_guarantee} 天</p>
 							<div className="btn_group">
@@ -74,7 +75,6 @@ class GoodsList extends React.Component {
 								<Button bsStyle="danger" bsSize="small" onClick={deleteOnClicked}>删除</Button>
 							</div>
 						</div>
-
 					</div>
 				</Col>
 			)
@@ -125,6 +125,7 @@ class GoodsList extends React.Component {
 					<img src={!!good && good.image_url} className="detail_img" alt=""/>
 					<p>{!!good && good.desc}</p>
 					<hr />
+					<p><b>编号: </b>{!!good && good._id}</p>
 					<p><b>单价: </b>{!!good && good.price} 元</p>
 					<p><b>保质期: </b>{!!good && good.quality_guarantee} 天</p>
 				</Modal.Body>

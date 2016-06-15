@@ -118,7 +118,7 @@ class AgentList extends React.Component {
 			const {editId} = this.state
 			renderArr.push(
 				<tr key={key}>
-					<td>{key}</td>
+					<td>{value._id}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.name : <FormControl md={1} className="table_inline_input" type="text" defaultValue={value.name} onChange={handleNameInputChange}/>}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.contact : <FormControl className="table_inline_input" type="text" defaultValue={value.contact} onChange={handleContactInputChange}/>}</td>
 					<td onDoubleClick={handleDoubleClick}>{editId != key ? value.phone : <FormControl className="table_inline_input" type="text" defaultValue={value.phone} onChange={handlePhoneInputChange}/>}</td>
@@ -155,7 +155,7 @@ class AgentList extends React.Component {
 						</tr>
 					</thead>
 					<tbody>
-						{this._renderAgentList(this.props.agent)}
+						{this._renderAgentList(this.props.agents)}
 					</tbody>
 				</Table>
 			</Col>
@@ -179,9 +179,9 @@ class AgentList extends React.Component {
 
 function mapStateToProps(state) {
 	/* Populated by react-webpack-redux:reducer */
-	const {agent} = state;
+	const {agents} = state;
 	return {
-		agent
+		agents
 	};
 }
 function mapDispatchToProps(dispatch) {

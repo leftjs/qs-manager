@@ -31,6 +31,20 @@ export const getAgentList = () => {
 	})
 }
 
+export const getSingleAgentInfo = (id) => {
+	return dispatch => dispatch({
+		type: types.GET_SINGLE_AGENT_INFO,
+		payload: new Promise((resolve,reject) => {
+			req.get(`/agents/${id}`).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
+	})
+}
+
+
 export const updateAgentInfo = (body) => {
 	return dispatch => dispatch({
 		type: types.UPDATE_AGENT_INFO,

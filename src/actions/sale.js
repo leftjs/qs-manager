@@ -16,6 +16,7 @@ export const createGood = (body) => {
 		})
 	})
 }
+
 export const getGoods = () => {
 	return dispatch => dispatch({
 		type: types.LOADING_GOODS_LIST,
@@ -28,6 +29,20 @@ export const getGoods = () => {
 		})
 	})
 }
+
+export const getSingleGoodInfo = (id) => {
+	return dispatch => dispatch({
+		type: types.GET_SINGLE_GOOD_INFO,
+		payload: new Promise((resolve, reject) => {
+			req.get(`/sale/good/${id}`).then((res) => {
+				resolve(res)
+			}).catch((err) => {
+				reject(err)
+			})
+		})
+	})
+}
+
 
 export const updateGood = (body) => {
 	return dispatch => dispatch({
@@ -56,6 +71,32 @@ export const deleteGood = (id) => {
 		meta: {
 			id
 		}
+	})
+}
+
+export const leaveFactoryRegister = (body) => {
+	return dispatch => dispatch({
+		type: types.LEAVE_FACTORY_REGISTER,
+		payload: new Promise((resolve,reject) => {
+			req.post(`/sale/leave`, body).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
+	})
+}
+
+export const getLeaveFactory = () => {
+	return dispatch => dispatch({
+		type: types.LOADING_LEAVE_FACTORY,
+		payload: new Promise((resolve,reject) => {
+			req.get(`/sale/leave`).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
 	})
 }
 

@@ -90,6 +90,13 @@ router.get('/',function(req,res,next) {
 	})
 })
 
+router.get('/:id',function(req,res,next) {
+	agent.find({_id: req.params['id']}, function(err,doc){
+		if (err) return next(err)
+		res.json(doc)
+	})
+})
+
 const customError = (status, msg) => {
 	let error = new Error()
 	error.status = status

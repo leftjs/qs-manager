@@ -7,6 +7,10 @@
 var express = require('express');
 var router = express.Router();
 var good = require('../models/good')
+var sale = require('../models/sale')
+var agent = require('../models/agent')
+var leaveFactory = require('../models/leaveFactory')
+import config from '../config'
 var _ = require('lodash')
 
 
@@ -42,6 +46,13 @@ router.get('/good', function(req,res,next) {
 	})
 })
 
+router.get('/good/:id', function(req,res,next) {
+	good.find({_id: req.params['id']}, function(err,doc) {
+		if(err) return next(err)
+		res.json(doc)
+	})
+})
+
 
 router.put('/good/:id', function(req,res,next) {
 	let body = req.body
@@ -73,6 +84,70 @@ router.delete('/good/:id', function(req,res,next) {
 		}
 		res.json({msg: 'success'})
 	})
+})
+
+
+//qrCodeUrl: String,
+//	agentId: String,
+//	goodId: String,
+//  user: String
+//	activate: Boolean,
+//	activateDate: Date,
+//	scanCount: Number
+
+
+
+//leaveDate: Date,
+//	agentId: String,
+//	goodId: String,
+//	leaveCount: String
+router.post('/leave',function(req,res,next) {
+	let body = req.body
+	if (_.some(_.values(body), (ele) => {
+			return _.isNil(ele) || _.isEmpty(ele)
+		})) {
+		return next(customError(400, "请填写完整的信息"))
+	}
+	leaveFactory.create({
+		agentId: body.agentId,
+		goodId: body.goodId,
+		leaveDate: new Date(),
+		leaveCount: body.leaveCount
+	},(err,batchInfo) => {
+		if(err) return next(err)
+		var result = _.times(batchInfo.leaveCount, () => {
+			sale.create({
+				agentId: body.agentId,
+				goodId: body.goodId,
+				activate: false,
+				user: null,
+				activateDate: null,
+				scanCount: 0
+			},(err, doc) => {
+				if (err) return next(err)
+				sale.update({_id: doc._id}, {$set: {
+					qrCodeUrl: `${config.domain}/sale/activate?good=${doc._id}`
+				}},{multi: false}).exec((err,numAffected) => {
+					if (err) return next(err)
+					if (numAffected == 0) return next(customError(400, "出库失败"))
+					return _.constant(0)
+				})
+			})
+		})
+		if (result.length == batchInfo.leaveCount) res.json(batchInfo)
+	})
+})
+
+router.get('/leave', (req,res,next) => {
+	leaveFactory.find({},function(err,list) {
+		if (err) return next(err)
+		res.json(list)
+	})
+})
+
+router.get('/activate', (req,res,next) => {
+	let goodId = req.query['good']
+	res.json(goodId)
 })
 
 const customError = (status, msg) => {

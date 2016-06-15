@@ -6,4 +6,11 @@ const config = {
   port: process.env.PORT || 3030,
 };
 
-export default _.extend(config, require(`./${config.env}`).default);
+var domain = `http://localhost:${config.port}`
+if (config.env == "production") {
+	domain = "http://qs-admin.lefttjs.com"
+}
+
+export default _.extend(config, {
+	domain
+},require(`./${config.env}`).default);

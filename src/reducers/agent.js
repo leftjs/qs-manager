@@ -4,7 +4,7 @@
 import * as types from '../actions/const'
 import _ from 'lodash'
 /* Populated by react-webpack-redux:reducer */
-export const agent = (state = [], action) => {
+export const agents = (state = [], action) => {
 	//console.log(state)
 	switch (action.type) {
 		case `${types.LOADING_AGENT_LIST}_FULFILLED`:
