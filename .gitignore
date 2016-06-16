@@ -164,3 +164,10 @@ jspm_packages
 # Optional REPL history
 .node_repl_history
 
+
+
+server/public/images/*
+!server/public/images/.gitkeep
+
+server/uploads/*
+!server/uploads/.gitkeep
