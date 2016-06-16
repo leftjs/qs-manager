@@ -8,7 +8,7 @@ var client = new OAuth(config.appId, config.secret)
 /* GET users listing. */
 router.get('/login/wechat', function(req, res, next) {
 	// state 在将来可以用来判断用来使用的设备或者判断登录方式
-	res.json({url: client.getAuthorizeURL(config.callback,'',"snsapi_userinfo")})
+	res.redirect(client.getAuthorizeURLForWebsite(config.callback))
 });
 
 ///oauth/wechat/callback
@@ -21,6 +21,29 @@ router.get('/login/wechat/callback', function(req,res,next) {
 			console.log(result)
 			res.json(result)
 		})
+	})
+})
+
+router.post('/login/admin', function(req,res,next) {
+	let body = req.body
+	user.find({
+		username: body.username,
+		password: body.password
+	}, function(err,doc) {
+		if (err) return next(err)
+		res.json(doc)
+	})
+})
+
+router.post('/register/admin', function(req,res,next) {
+	let body = req.body
+	user.create({
+		username: body.username,
+		password: body.password,
+		isAdmin: true
+	},function(err,doc) {
+		if (err) return next(err)
+		res.json(doc)
 	})
 })
 

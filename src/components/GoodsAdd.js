@@ -2,7 +2,7 @@
  * Created by jason on 6/2/16.
  */
 //require('normalize.css/normalize.css');
-require('../styles/Agent.scss')
+//require('../styles/Agent.scss')
 import React from 'react'
 import {Col, Form, FormGroup, Checkbox, Button, ControlLabel, FormControl, InputGroup, Alert} from 'react-bootstrap'
 import ReactDOM from 'react-dom'

@@ -12,10 +12,17 @@ import GoodsList from './components/GoodsList'
 import GoodsAdd from './components/GoodsAdd'
 import Login from './components/Login'
 import LeaveFactoryRegister from './components/LeaveFactoryRegister'
+import { UserAuthWrapper } from 'redux-auth-wrapper'
 
 const store = configureStore();
 
 const history = syncHistoryWithStore(browserHistory, store)
+
+//const UserIsAuthenticated = UserAuthWrapper({
+//	authSelector: state => state.user, // how to get the user state
+//	redirectAction: routerActions.replace, // the redux action to dispatch for redirect
+//	wrapperDisplayName: 'UserIsAuthenticated' // a nice name for this auth check
+//})
 
 render(
   <Provider store={store}>

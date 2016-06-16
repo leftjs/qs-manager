@@ -9,6 +9,9 @@ var userSchema = Schema({
 	province: String,
 	city: String,
 	avatar: String,
+	isAdmin: Boolean,
+	username: String,
+	password: String
 })
 
 module.exports = db.model('User', userSchema)
