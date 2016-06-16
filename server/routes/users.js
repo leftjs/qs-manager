@@ -4,6 +4,9 @@ var OAuth = require('wechat-oauth')
 var user = require('../models/user')
 import config from '../config'
 var client = new OAuth(config.appId, config.secret)
+import _ from 'lodash'
+
+
 
 /* GET users listing. */
 router.get('/login/wechat', function(req, res, next) {
@@ -26,11 +29,12 @@ router.get('/login/wechat/callback', function(req,res,next) {
 
 router.post('/login/admin', function(req,res,next) {
 	let body = req.body
-	user.find({
+	user.findOne({
 		username: body.username,
 		password: body.password
 	}, function(err,doc) {
 		if (err) return next(err)
+		if (_.isEmpty(doc)) return next(customError(400, "用户名或密码错误"))
 		res.json(doc)
 	})
 })
@@ -46,5 +50,11 @@ router.post('/register/admin', function(req,res,next) {
 		res.json(doc)
 	})
 })
+
+const customError = (status, msg) => {
+	let error = new Error(msg)
+	error.status = status
+	return error
+}
 
 module.exports = router;

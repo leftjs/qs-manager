@@ -31,7 +31,11 @@ export const DELETE_GOOD = "DELETE_GOOD"
 export const LEAVE_FACTORY_REGISTER = "LEAVE_FACTORY_REGISTER"
 // 加载出库记录
 export const LOADING_LEAVE_FACTORY = "LOADING_LEAVE_FACTORY"
-
+// 获得登录的qrcode(dep)
 export const GET_LOGIN_QRCODE_URL = "GET_LOGIN_QRCODE_URL"
 // 管理员登录
 export const LOGIN_ADMIN = "LOGIN_ADMIN"
+// 管理员登出
+export const LOGOUT_ADMIN = "LOGOUT_ADMIN"
+
+export const LOADING_SALE_LIST = "LOADING_SALE_LIST"

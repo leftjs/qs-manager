@@ -24,7 +24,8 @@ class Login extends React.Component {
     super(props);
     // 初始状态
     this.state = {
-	    url: null
+	    url: null,
+	    alertVisible: false
     };
   }
 
@@ -36,12 +37,37 @@ class Login extends React.Component {
 		const usernameInput = ReactDOM.findDOMNode(this._usernameInput)
 		const passwordInput = ReactDOM.findDOMNode(this._passwordInput)
 
-
+		const {loginByAdmin} = this.props.actions
+		loginByAdmin({
+			username: usernameInput.value,
+			password: passwordInput.value
+		}).then((res) => {
+			browserHistory.push('/')
+		}).catch((err) => {
+			this.setState({
+				alertVisible: true
+			})
+			setTimeout(() => {
+				this.setState({
+					alertVisible: false
+				})
+			}, 2000)
+		})
 
 	}
 
 	render(){
 		return (
+			<div>
+				{!!this.state.alertVisible && (
+					<Alert bsStyle="danger" onDismiss={this.handleAlertDismiss}>
+						<h4>登录失败!</h4>
+						<p>请检查用户名或密码是否正确</p>
+					</Alert>
+				)}
+				<Col xs={12} md={8} mdOffset={2} >
+					<h2>asdfas</h2>
+				</Col>
 				<Col xs={12} md={8} mdOffset={2} id="_loginForm">
 					<Form horizontal>
 						<FormGroup>
@@ -61,12 +87,14 @@ class Login extends React.Component {
 							</Col>
 						</FormGroup>
 						<FormGroup >
-							<Col sm={6} smOffset={4} id="_loginButton" >
+							<Col sm={8} smOffset={2} id="_loginButton" >
 								<Button onClick={this.handleLoginClicked}>登录</Button>
 							</Col>
 						</FormGroup>
 					</Form>
 				</Col>
+			</div>
+
 		)
 	}
 }

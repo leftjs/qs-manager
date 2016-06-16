@@ -102,5 +102,20 @@ export const getLeaveFactory = () => {
 
 
 
+export const getSaleList = () => {
+	return dispatch => dispatch({
+		type: types.LOADING_SALE_LIST,
+		payload: new Promise((resolve,reject) => {
+			req.get(`/sale/list`).then(res => {
+				resolve(res)
+			}).catch(err => {
+				reject(err)
+			})
+		})
+	})
+}
+
+
+
 
 

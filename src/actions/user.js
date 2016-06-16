@@ -17,4 +17,29 @@ export const getLoginQRCodeUrl = () => {
 	})
 }
 
+export const loginByAdmin = (body) => {
+	return dispatch => dispatch({
+		type: types.LOGIN_ADMIN,
+		payload: new Promise((resolve, reject) => {
+			req.post(`/users/login/admin`, body).then((res) => {
+				resolve(res)
+			}).catch((err) => {
+				reject(err)
+			})
+		})
+	})
+}
+
+
+export const logoutByAdmin = () => {
+	return dispatch => dispatch({
+		type: types.LOGOUT_ADMIN,
+		payload: null
+	})
+}
+
+
+
+
+
 

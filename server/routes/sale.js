@@ -12,7 +12,17 @@ var agent = require('../models/agent')
 var leaveFactory = require('../models/leaveFactory')
 import config from '../config'
 var _ = require('lodash')
+var OAuth = require('wechat-oauth')
+var client = new OAuth(config.appId, config.secret)
 
+
+
+router.get('/list', (req,res,next) => {
+	sale.find({}, (err,result) => {
+		if (err) return next(err)
+		res.json(result)
+	})
+})
 
 //name: String, // 商品名称
 //	price: Number, // 商品价格
@@ -133,9 +143,23 @@ router.get('/leave', (req,res,next) => {
 })
 
 router.get('/activate', (req,res,next) => {
-	let goodId = req.query['good']
-	res.json(goodId)
+	var goodId = req.query['good']
+	var url = client.getAuthorizeURL(`${config.sale_callback}`, "goodId", 'snsapi_userinfo')
+	res.redirect(url)
 })
+
+router.get('/activate/callback', (req,res,next) => {
+	console.log(req.query)
+	res.json('ok')
+	//let goodId = req.query['good']
+	//sale.update({_id: goodId}, {$set: {
+	//
+	//}}, {multi: false}, function(err,numberReplaced) {
+	//
+	//})
+	//res.json(goodId)
+})
+
 
 const customError = (status, msg) => {
 	let error = new Error(msg)

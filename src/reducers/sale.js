@@ -20,3 +20,15 @@ export const leaveRecords = (state = [], action) => {
 			return state
 	}
 }
+
+
+export const sales = (state = [], action) => {
+	switch (action.type){
+		case `${types.LOADING_SALE_LIST}_FULFILLED`:
+			return [
+				...action.payload
+			]
+		default:
+			return state
+	}
+}

@@ -6,14 +6,15 @@ const config = {
   port: process.env.PORT || 3030,
 	appId: "wx926e5c3031482d64",
 	secret: "248630d1718eab25774b5414f944d0f8",
-	callback: "http://qs-admin.lefttjs.com/users/login/wechat/callback"
+	domain: `http://localhost:${process.env.PORT || 3030}`,
+	db_user: "qs-admin",
+	db_pass: "qs-admin-pass"
 };
 
-var domain = `http://localhost:${config.port}`
 if (config.env == "production") {
-	domain = "http://qs-admin.lefttjs.com"
+	config.domain = "http://qs-admin.lefttjs.com"
 }
 
-export default _.extend(config, {
-	domain
-},require(`./${config.env}`).default);
+config['sale_callback'] = `${config.domain}/sale/activate/callback`
+
+export default _.extend(config, require(`./${config.env}`).default);

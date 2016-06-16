@@ -8,10 +8,12 @@ import React from 'react'
 import {Nav, NavItem, Navbar, NavDropdown, MenuItem} from 'react-bootstrap'
 import _ from 'lodash'
 import { Link, browserHistory } from 'react-router'
+import actions from '../actions'
+import { bindActionCreators } from 'redux';
+import { connect } from 'react-redux';
 
 
-
-export default class extends React.Component {
+class Header extends React.Component {
 
 	agentAddClicked = (e) => {
 		browserHistory.push('/agent_add')
@@ -36,6 +38,17 @@ export default class extends React.Component {
 		browserHistory.push('/login')
 	}
 
+	logoutClicked = (e) => {
+		const {logoutByAdmin} = this.props.actions
+		logoutByAdmin()
+		browserHistory.push('/login')
+	}
+
+	saleListClicked = (e) => {
+		browserHistory.push('/sale_list')
+	}
+
+
 
 	render() {
 		return (
@@ -59,14 +72,14 @@ export default class extends React.Component {
 							</NavDropdown>
 							<NavDropdown eventKey={3} title="销售管理" id="basic-nav-dropdown">
 								<MenuItem eventKey={3.1} onClick={this.leaveRegisterClicked}>出厂登记</MenuItem>
-								<MenuItem eventKey={3.2} onClick={this.leaveRegisterClicked}>销售列表</MenuItem>
+								<MenuItem eventKey={3.2} onClick={this.saleListClicked}>销售列表</MenuItem>
 								<MenuItem divider />
 								<MenuItem eventKey={3.3} onClick={this.goodsListClicked}>商品列表</MenuItem>
 								<MenuItem eventKey={3.4} onClick={this.goodsAddClicked}>商品添加</MenuItem>
 							</NavDropdown>
 						</Nav>
 						<Nav pullRight>
-							<NavItem eventKey={1} href="#" onClick={this.loginClicked}>登录</NavItem>
+							{!!_.isEmpty(this.props.admin) ? <NavItem eventKey={1} href="#" onClick={this.loginClicked}>登录</NavItem> : <NavItem eventKey={1} href="#" onClick={this.logoutClicked}>注销</NavItem>}
 						</Nav>
 					</Navbar.Collapse>
 				</Navbar>
@@ -77,6 +90,26 @@ export default class extends React.Component {
 
 const styles = {
 	progress: {
-
 	}
 }
+
+
+function mapStateToProps(state) {
+	/* Populated by react-webpack-redux:reducer */
+	const {admin} = state;
+	return {
+		admin
+	};
+}
+
+function mapDispatchToProps(dispatch) {
+	/* Populated by react-webpack-redux:action */
+	return {
+		actions: {
+			...bindActionCreators(actions, dispatch)
+		}
+	}
+}
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
+
+

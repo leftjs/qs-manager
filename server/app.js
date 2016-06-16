@@ -6,9 +6,18 @@ var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var mongoose = require('mongoose')
 var cors = require('cors')
+import config from './config'
 
 var db_uri = 'mongodb://localhost/qs_manager'
-global.db = mongoose.createConnection(db_uri)
+var db_options = {
+	user: config.db_user,
+	pass: config.db_pass
+}
+if (process.env.NODE_ENV == "production") {
+	global.db = mongoose.createConnection(db_uri, db_options)
+}else {
+	global.db = mongoose.createConnection(db_uri)
+}
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
