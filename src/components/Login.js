@@ -36,13 +36,15 @@ class Login extends React.Component {
 	handleLoginClicked = (e) => {
 		const usernameInput = ReactDOM.findDOMNode(this._usernameInput)
 		const passwordInput = ReactDOM.findDOMNode(this._passwordInput)
+		const prePath = this.props.location.search.split('=')[1]
+
 
 		const {loginByAdmin} = this.props.actions
 		loginByAdmin({
 			username: usernameInput.value,
 			password: passwordInput.value
 		}).then((res) => {
-			browserHistory.push('/')
+			browserHistory.push(!!prePath ? prePath : '/')
 		}).catch((err) => {
 			this.setState({
 				alertVisible: true
@@ -66,7 +68,7 @@ class Login extends React.Component {
 					</Alert>
 				)}
 				<Col xs={12} md={8} mdOffset={2} >
-					<h2>asdfas</h2>
+					<h2>青霜科技后台管理系统</h2>
 				</Col>
 				<Col xs={12} md={8} mdOffset={2} id="_loginForm">
 					<Form horizontal>
