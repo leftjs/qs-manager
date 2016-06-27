@@ -17,6 +17,7 @@
     "serve:dist": "node server.js --env=dist",
     "start": "node server.js --env=dev",
     "api:serve": "nodemon --watch ./server --exec babel-node ./server/bin/www",
+    "api:serve:dist": "babel-node ./server/bin/www",
     "test": "karma start",
     "test:watch": "karma start --autoWatch=true --singleRun=false"
   },

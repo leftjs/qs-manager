@@ -12,7 +12,7 @@ const config = {
 };
 
 if (config.env == "production") {
-	config.domain = "http://qs-admin.lefttjs.com"
+	config.domain = "http://qs-admin-api.lefttjs.com"
 }
 
 config['sale_callback'] = `${config.domain}/sale/activate/callback`
