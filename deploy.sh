@@ -13,5 +13,5 @@ export NODE_ENV=production
 git reset --hard
 git pull origin HEAD
 npm install
-npm run start api:serve:dist &
+babel-node ./server/bin/www &
 npm run start serve:dist &
