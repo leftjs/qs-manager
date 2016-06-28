@@ -171,3 +171,4 @@ server/public/images/*
 
 server/uploads/*
 !server/uploads/.gitkeep
+/dist/
