@@ -12,7 +12,7 @@ const config = {
 };
 
 if (config.env == "production") {
-	config.domain = "http://qs-admin-api.greenicetech.cn"
+	config.domain = "http://qs-admin.greenicetech.cn"
 }
 
 config['sale_callback'] = `${config.domain}/sale/activate/callback`
